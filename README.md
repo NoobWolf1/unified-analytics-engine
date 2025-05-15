@@ -18,7 +18,7 @@ This system provides a comprehensive solution for tracking user interactions acr
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v16+)
+- [Node.js](https://nodejs.org/) (v20+)
 - [Docker](https://www.docker.com/) and Docker Compose
 - [Git](https://git-scm.com/)
 
