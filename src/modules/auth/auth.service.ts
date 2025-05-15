@@ -59,7 +59,7 @@ export class AuthService {
     const keyHash = await hashString(plainKey);
     const keyPrefix = plainKey.substring(0, 6); // For easier identification if needed
     const expirationDays = this.configService.get<number>('apiKey.defaultExpirationDays');
-    const expiresAt = addDays(new Date(), expirationDays);
+    const expiresAt = addDays(new Date(), expirationDays ?? 30); // Default to 30 days if undefined
 
     const apiKeyEntity = this.apiKeysRepository.create({
       keyHash,
@@ -164,7 +164,7 @@ export class AuthService {
   }
 
   // Scheduled task to clean up expired (but not necessarily revoked) keys, or other maintenance
-  @Cron(CronExpression.DAILY_AT_MIDNIGHT)
+  @Cron('0 0 * * *')
   async handleCron() {
     this.logger.log('Running scheduled tasks for API keys...');
     // Example: Find keys expired more than 30 days ago and hard delete them if desired

@@ -1,9 +1,10 @@
-import { Module, CacheModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ScheduleModule } from '@nestjs/schedule'; // For potential cron jobs like API key cleanup
 import * as redisStore from 'cache-manager-redis-store';
+import { CacheModule } from '@nestjs/cache-manager';
 
 import configuration from './config/configuration';
 import { AuthModule } from './modules/auth/auth.module';
@@ -16,6 +17,8 @@ import { User } from './database/entities/user.entity';
 import { Application } from './database/entities/application.entity';
 import { ApiKey } from './database/entities/api-key.entity';
 import { Event } from './database/entities/event.entity';
+
+
 
 @Module({
   imports: [
@@ -50,10 +53,10 @@ import { Event } from './database/entities/event.entity';
       }),
       inject: [ConfigService],
     }),
-    ThrottlerModule.forRoot({
+    ThrottlerModule.forRoot([{ // <-- Wrapped in an array
       ttl: 60, // seconds
-      limit: 100, // requests per ttl
-    }),
+      limit: 100, // requests per timeToLive
+    }]),
     ScheduleModule.forRoot(),
     AuthModule,
     AnalyticsModule,

@@ -1,15 +1,15 @@
 export default () => ({
-  port: parseInt(process.env.PORT, 10) || 3000,
+  port: parseInt(process.env.PORT || '3000', 10),
   database: {
     host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT, 10) || 5432,
+    port: parseInt(process.env.DB_PORT || '5432', 10),
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
   },
   redis: {
     host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT, 10) || 6379,
+    port: parseInt(process.env.REDIS_PORT || '6379', 10),
   },
   google: {
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -21,6 +21,6 @@ export default () => ({
     expirationTime: process.env.JWT_EXPIRATION_TIME,
   },
   apiKey: {
-    defaultExpirationDays: parseInt(process.env.API_KEY_DEFAULT_EXPIRATION_DAYS, 10) || 365,
+    defaultExpirationDays: parseInt(process.env.API_KEY_DEFAULT_EXPIRATION_DAYS || '365', 10),
   }
 });

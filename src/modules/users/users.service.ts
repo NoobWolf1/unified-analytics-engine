@@ -12,11 +12,11 @@ export class UsersService {
   ) {}
 
   async findByGoogleId(googleId: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ where: { googleId } });
+    return (await this.usersRepository.findOne({ where: { googleId } })) ?? undefined;
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ where: { email } });
+    return (await this.usersRepository.findOne({ where: { email } })) ?? undefined;
   }
 
   async createOrUpdateUser(profile: { googleId: string; email: string; name?: string }): Promise<User> {
@@ -35,6 +35,6 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ where: { id } });
+    return (await this.usersRepository.findOne({ where: { id } })) ?? undefined;
   }
 }

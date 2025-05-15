@@ -1,4 +1,5 @@
-import { Injectable, Logger, Inject, CACHE_MANAGER, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, Inject, BadRequestException, NotFoundException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between, MoreThanOrEqual, LessThanOrEqual, FindOptionsWhere } from 'typeorm';
 import { Cache } from 'cache-manager';
