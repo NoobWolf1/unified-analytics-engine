@@ -7,19 +7,19 @@ services:
       dockerfile: Dockerfile
     container_name: unified-analytics-api
     ports:
-      - "${PORT:-3000}:${PORT:-3000}" # Use PORT from .env, default to 3000
+      - "${PORT:-3000}:${PORT:-3000}"
     depends_on:
       - postgres
       - redis
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${PORT:-3000}
-      DB_HOST: postgres # Service name in docker-compose
+      DB_HOST: postgres
       DB_PORT: ${DB_PORT:-5432}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
-      REDIS_HOST: redis # Service name in docker-compose
+      REDIS_HOST: redis
       REDIS_PORT: ${REDIS_PORT:-6379}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
@@ -28,10 +28,10 @@ services:
       JWT_EXPIRATION_TIME: ${JWT_EXPIRATION_TIME}
       API_KEY_DEFAULT_EXPIRATION_DAYS: ${API_KEY_DEFAULT_EXPIRATION_DAYS}
     volumes:
-      - .:/usr/src/app # Mount source code for hot-reloading in dev (if using nodemon)
-      - /usr/src/app/node_modules # Don't mount over node_modules
-    # For development with nodemon, you might change the command:
-    # command: npm run start:dev
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    command: npm run start:dev
     networks:
       - analytics-network
 
