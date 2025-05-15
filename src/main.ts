@@ -1,3 +1,5 @@
+(global as any).crypto = require('crypto');
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
@@ -5,10 +7,11 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('port');
+  const port = configService.get<number>('port') ?? 3000;
   const logger = new Logger('Bootstrap');
 
   app.enableCors(); // Configure allowed origins for production
